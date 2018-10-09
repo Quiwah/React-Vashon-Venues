@@ -34,6 +34,7 @@ class App extends Component {
     axios.get(endPoint + new URLSearchParams(parameters))
       .then(response => {
         //ここで、上で作った配列にデータを入れる
+        console.log(response.data.response.groups[0].items);
         this.setState({
           venues: response.data.response.groups[0].items
           //ここより前に実行すると配列が空になってしまう
@@ -55,7 +56,7 @@ class App extends Component {
 
   //フォースクエアから引っ張ってきた場所ひとつひとつに対してマーカーを作る
   this.state.venues.map(myVenue => {
-    var contentString = `${myVenue.venue.name}`;
+    var contentString = '<font style="color: #BD5A5A; font-weight: 800">' + `${myVenue.venue.name}` + '</font>' + ' (' + `${myVenue.venue.categories[0].name}` + ') ' + '<br>' + `${myVenue.venue.location.address}`;
 
     //Create marker
     var marker = new window.google.maps.Marker({
