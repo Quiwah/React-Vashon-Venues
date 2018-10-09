@@ -34,7 +34,6 @@ class App extends Component {
     axios.get(endPoint + new URLSearchParams(parameters))
       .then(response => {
         //ここで、上で作った配列にデータを入れる
-        console.log(response.data.response.groups[0].items);
         this.setState({
           venues: response.data.response.groups[0].items
           //ここより前に実行すると配列が空になってしまう
