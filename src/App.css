@@ -41,3 +41,12 @@ html, body {
   padding: 0;
 }
 
+.header {
+  background: #F6F3DB;
+}
+
+h1 {
+  color: #96B896;
+  margin: 0;
+  text-align: center;
+}

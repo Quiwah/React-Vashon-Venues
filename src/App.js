@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Header from './parts/Header';
 import './responsive.css';
 import axios from 'axios';
 
@@ -26,7 +27,7 @@ class App extends Component {
       client_id: 'VPYE1ATQWP3JJ42VT0OWU42SVVP14CF5TIANTCAWHLVTKICP',
       client_secret: 'ZE20VQRHIA1NN2K5025Q5DYJKQHILLOLF4SVS3ELMSHGSZIH',
       query: 'food',
-      ll: '44.501152, 11.331005',
+      ll: '47.424885, -122.470579',
       v: '20190323'
     };
 
@@ -45,8 +46,8 @@ class App extends Component {
 
   initMap = () => {
     const map = new window.google.maps.Map(document.getElementById('map'), {
-      center: {lat: 44.501152, lng: 11.331005},
-      zoom: 16
+      center: {lat: 47.424885, lng: -122.470579},
+      zoom: 12
     });
 
   //Create infowindow 下のthis.の中に入れちゃうと重複する
@@ -60,7 +61,9 @@ class App extends Component {
     var marker = new window.google.maps.Marker({
       position: {lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng},
       map: map,
-      title: myVenue.venue.name
+      title: myVenue.venue.name,
+      icon: {                             
+        url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"}
     })
 
     //マーカーがクリックされると
@@ -75,10 +78,10 @@ class App extends Component {
 
   render() {
     return (
-      // <Main>
+      <div id="wrapper">
+        <Header />
         <div id="map"></div>
-      // </Main>
-
+      </div>
     )
   }
 }
