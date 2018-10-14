@@ -34,7 +34,7 @@
 #map {
   height: 100vh;
 }
-/* Optional: Makes the sample page fill the window. */
+
 html, body {
   height: 100%;
   margin: 0;
@@ -44,10 +44,40 @@ html, body {
 
 .header {
   background: #96B896;
+  color: #F6F3DB;
+  padding: 5px 10px;
+  display: flex;
+  -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+  -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
 }
 
 h1 {
-  color: #F6F3DB;
   margin: 0;
-  text-align: center;
+}
+
+.main {
+  width: 100%;
+}
+
+.menu-and-list {
+  min-height: 100vh;
+  width: 100px;
+  padding: 10px 30px;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 5;
+  /* display: none; */
+}
+
+.menu {
+  height: 150px;
+  display: flex;
+  flex-direction: column;
 }

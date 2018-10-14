@@ -33,3 +33,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 [Foursquare](https://foursquare.com/)
 
+[Font Awesome](https://fontawesome.com)
+

@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
 import './App.css';
 import Header from './parts/Header';
+import Sidebar from './parts/Sidebar';
+import List from './parts/List';
 import './responsive.css';
 import axios from 'axios';
 
 class App extends Component {
-
   //別の場所で使うデータを格納する
   state = {
-    venues: []
+    sidebarOpen: true,
+    venues: [],
+    query: ''
+  };
+
+  showSidebar(){
+    let filter = document.getElementsByClassName('fa-filter')[0];
+    let menu = document.getElementsByClassName('menu-and-list').style.display('block');
+    menu.setState({filter});
   }
 
   //下に書いたファンクションをここで呼ぶ
@@ -54,7 +63,9 @@ class App extends Component {
   var infowindow = new window.google.maps.InfoWindow();
 
   //フォースクエアから引っ張ってきた場所ひとつひとつに対してマーカーを作る
+  // eslint-disable-next-line
   this.state.venues.map(myVenue => {
+    // eslint-disable-next-line
     var contentString = '<font style="color: #BD5A5A; font-weight: 800">' + `${myVenue.venue.name}` + '</font>' + ' (' + `${myVenue.venue.categories[0].name}` + ') ' + '<br>' + `${myVenue.venue.location.address}`;
 
     //Create marker
@@ -62,8 +73,7 @@ class App extends Component {
       position: {lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng},
       map: map,
       title: myVenue.venue.name,
-      icon: {                             
-        url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"}
+      icon: {url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"}
     })
 
     //マーカーがクリックされると
@@ -80,7 +90,13 @@ class App extends Component {
     return (
       <div id="wrapper">
         <Header />
-        <div id="map"></div>
+        <div className="main">
+          <div className="menu-and-list">
+            <Sidebar />
+            <List />
+          </div>
+          <div id="map"></div>
+        </div>
       </div>
     )
   }
