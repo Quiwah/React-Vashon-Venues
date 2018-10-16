@@ -1,11 +1,26 @@
 import React from 'react'
+import classNames from 'classnames'
 
-const Header = () => (
-    <div className="header">
-        <i class="fas fa-filter" onClick={()=>this.showSidebar()}></i>
-        <h1>Vashon Venues</h1>
-        <i class="fas fa-search-location"></i>
-    </div>
-)
+export default class Header extends React.Component {
+    handleSidebar = this.handleSidebar.bind(this)
+    state = {
+        sidebarStatus: ''
+    }
 
-export default Header
+    handleSidebar(props, e) {
+        e.preventDefault()
+        console.log('clicked')
+        classNames('show', {
+            'is_active' : this.state.isActive
+        })
+    }
+
+    render(){
+        return(
+            <div className="header">
+                <h1>Vashon Venues</h1>
+                <input type="search" aria-describedby="search-field" placeholder="Search..." />
+            </div>
+        )
+    }
+}

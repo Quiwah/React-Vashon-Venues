@@ -1,23 +1,21 @@
-import React, { Component } from 'react';
-import './App.css';
-import Header from './parts/Header';
-import Sidebar from './parts/Sidebar';
-import List from './parts/List';
-import './responsive.css';
-import axios from 'axios';
+import React from 'react'
+import './App.css'
+import Header from './parts/Header'
+import Sidebar from './parts/Sidebar'
+import './responsive.css'
+import axios from 'axios'
 
-class App extends Component {
+export default class App extends React.Component {
+
   //別の場所で使うデータを格納する
   state = {
-    sidebarOpen: true,
     venues: [],
     query: ''
-  };
+  }
 
-  showSidebar(){
-    let filter = document.getElementsByClassName('fa-filter')[0];
+  hideSidebar(){
     let menu = document.getElementsByClassName('menu-and-list').style.display('block');
-    menu.setState({filter});
+    menu.setState({})
   }
 
   //下に書いたファンクションをここで呼ぶ
@@ -38,13 +36,13 @@ class App extends Component {
       query: 'food',
       ll: '47.424885, -122.470579',
       v: '20190323'
-    };
+    }
 
     axios.get(endPoint + new URLSearchParams(parameters))
       .then(response => {
         //ここで、上で作った配列にデータを入れる
         this.setState({
-          venues: response.data.response.groups[0].items
+          venues: response.data.response.groups[0].items,
           //ここより前に実行すると配列が空になってしまう
         }, this.renderMap())
       })
@@ -57,7 +55,7 @@ class App extends Component {
     const map = new window.google.maps.Map(document.getElementById('map'), {
       center: {lat: 47.424885, lng: -122.470579},
       zoom: 12
-    });
+    })
 
   //Create infowindow 下のthis.の中に入れちゃうと重複する
   var infowindow = new window.google.maps.InfoWindow();
@@ -82,7 +80,7 @@ class App extends Component {
       infowindow.setContent(contentString)
       //インフォウインドウを開く
       infowindow.open(map, marker)
-    });
+    })
   })
   }
 
@@ -91,11 +89,8 @@ class App extends Component {
       <div id="wrapper">
         <Header />
         <div className="main">
-          <div className="menu-and-list">
-            <Sidebar />
-            <List />
-          </div>
-          <div id="map"></div>
+          <Sidebar myVenue={this.state.venues}/>
+          <div id="map" role="application" aria-label="Google map of Vashon places"></div>
         </div>
       </div>
     )
@@ -103,12 +98,10 @@ class App extends Component {
 }
 
 function loadApi(url) {
-  const index = window.document.getElementsByTagName('script')[0];
-  const script = window.document.createElement("script");
-  script.src = url;
-  script.async = true;
-  script.defer = true;
-  index.parentNode.insertBefore(script, index);
+  const index = window.document.getElementsByTagName('script')[0]
+  const script = window.document.createElement("script")
+  script.src = url
+  script.async = true
+  script.defer = true
+  index.parentNode.insertBefore(script, index)
 }
-
-export default App;
