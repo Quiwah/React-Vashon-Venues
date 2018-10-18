@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  height: 100vh;
+  width: 100vw;
 }
 
 .App-logo {
@@ -83,10 +85,15 @@ h1 {
   right: 5px;
 }
 
-.menu {
+#menu {
   margin-top: 50px;
   display: flex;
   flex-direction: column;
+}
+
+#list {
+  height: 100px;
+  color: black;
 }
 
 input {

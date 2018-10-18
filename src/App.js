@@ -1,31 +1,57 @@
-import React from 'react'
-import './App.css'
-import Header from './parts/Header'
-import Sidebar from './parts/Sidebar'
-import './responsive.css'
-import axios from 'axios'
+import React, {Component} from 'react';
+import './App.css';
+import Header from './parts/Header';
+// import Sidebar from './parts/Sidebar';
+import Map from './parts/Map';
+import './responsive.css';
+import axios from 'axios';
 
-export default class App extends React.Component {
-
-  //別の場所で使うデータを格納する
-  state = {
-    venues: [],
-    query: ''
-  }
-
-  hideSidebar(){
-    let menu = document.getElementsByClassName('menu-and-list').style.display('block');
-    menu.setState({})
+class Sidebar extends Component {
+  render(){
+    const venuesList = this.props.venues
+  return(
+    <div id="sidebar">
+      <i className="fas fa-folder-minus fa-2x" 
+        onClick={this.handleSidebar}
+      />
+      <div id="menu">
+        Select the area:
+        <a id="town" className="menu-item" href="/town">Town</a>
+        <a id="burton" className="menu-item" href="/burton">Burton</a>
+        <a id="maury" className="menu-item" href="/maury">Maury</a>
+      </div>
+      <div id="list">
+        <ul className="venue-list">
+          {venuesList.map(venueItem => (
+            <li key={venueItem.venue.id}>
+              <div className="venue-name">{venueItem.venue.name}</div>
+              <div className="venue-address">{venueItem.venue.location.address}</div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+}
+export default class App extends Component {
+  constructor(props){
+    super(props);
+    //別の場所で使うデータを格納する
+    this.state = {
+      venues: [],
+      query: ''
+    }
   }
 
   //下に書いたファンクションをここで呼ぶ
   componentDidMount() {
-    this.getVenues()
+    this.getVenues();
   }
 
   renderMap = () => {
-    loadApi('https://maps.googleapis.com/maps/api/js?key=AIzaSyCe4r1pl_xLXiDj61hQQvWdEsqFnmtHgrE&v=3&callback=initMap')
-    window.initMap = this.initMap
+    loadApi('https://maps.googleapis.com/maps/api/js?key=AIzaSyCe4r1pl_xLXiDj61hQQvWdEsqFnmtHgrE&v=3&callback=initMap');
+    window.initMap = this.initMap;
   }
 
   getVenues = () => {
@@ -42,66 +68,66 @@ export default class App extends React.Component {
       .then(response => {
         //ここで、上で作った配列にデータを入れる
         this.setState({
-          venues: response.data.response.groups[0].items,
+          venues: response.data.response.groups[0].items
           //ここより前に実行すると配列が空になってしまう
-        }, this.renderMap())
+        }, this.renderMap());
       })
       .catch(error => {
         console.log('error!!' + error);
-      })
+      });
   }
 
   initMap = () => {
     const map = new window.google.maps.Map(document.getElementById('map'), {
       center: {lat: 47.424885, lng: -122.470579},
       zoom: 12
-    })
+    });
 
   //Create infowindow 下のthis.の中に入れちゃうと重複する
-  var infowindow = new window.google.maps.InfoWindow();
+  const infowindow = new window.google.maps.InfoWindow();
 
   //フォースクエアから引っ張ってきた場所ひとつひとつに対してマーカーを作る
   // eslint-disable-next-line
   this.state.venues.map(myVenue => {
     // eslint-disable-next-line
-    var contentString = '<font style="color: #BD5A5A; font-weight: 800">' + `${myVenue.venue.name}` + '</font>' + ' (' + `${myVenue.venue.categories[0].name}` + ') ' + '<br>' + `${myVenue.venue.location.address}`;
+    let contentString = '<font style="color: #BD5A5A; font-weight: 800">' + `${myVenue.venue.name}` + '</font>' + ' (' + `${myVenue.venue.categories[0].name}` + ') ' + '<br>' + `${myVenue.venue.location.address}`;
 
     //Create marker
-    var marker = new window.google.maps.Marker({
+    let marker = new window.google.maps.Marker({
       position: {lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng},
       map: map,
       title: myVenue.venue.name,
       icon: {url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"}
-    })
+    });
 
     //マーカーがクリックされると
     marker.addListener('click', function() {
       //インフォウインドウの内容を変更
-      infowindow.setContent(contentString)
+      infowindow.setContent(contentString);
       //インフォウインドウを開く
-      infowindow.open(map, marker)
-    })
+      infowindow.open(map, marker);
+    });
   })
   }
-
+  
   render() {
     return (
       <div id="wrapper">
         <Header />
         <div className="main">
-          <Sidebar myVenue={this.state.venues}/>
-          <div id="map" role="application" aria-label="Google map of Vashon places"></div>
+          <Sidebar venues={this.state.venues}/>
+          <Map />
         </div>
       </div>
-    )
+    );
   }
-}
+};
 
 function loadApi(url) {
-  const index = window.document.getElementsByTagName('script')[0]
-  const script = window.document.createElement("script")
-  script.src = url
-  script.async = true
-  script.defer = true
-  index.parentNode.insertBefore(script, index)
+  const index = window.document.getElementsByTagName('script')[0];
+  const script = window.document.createElement("script");
+  script.src = url;
+  script.async = true;
+  script.defer = true;
+  index.parentNode.insertBefore(script, index);
 }

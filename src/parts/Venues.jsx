@@ -1,46 +1,44 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 
 export default class Venues extends React.Component {
-    // venueData({this.props.eachVenue}) = ({name, address}) => {
-    //     {this.props.eachVenue}.map(info) => (
-    //         name : {info.name},
-    //         address : {info.location.address}
-    //     )
-    //     let eachName = receivedData.name
-    //     let eachAddress = receivedData.location.address
+    constructor(props){
+        super(props)
+        // this.props.venue = this.props.venue.bind(this)
+        console.log(this.eachVenues)
+    }
 
-    //     this.state.name.map(receivedData => {
-    //         name = eachName
-    //         return(window.document.getElementsByClassName('venue-name').textContent(eachName))
-    //     })
-    //     console.log(eachName)
-    //     this.state.address.map(receivedData => {
-    //         address = eachAddress
-    //         return(console.log(eachAddress))
-    //     })
-    // }
+    componentDidMount() {
+        this.eachVenues()
+      }
+
+// componentDidMount() {
+//     this.displayVenue()
+//   }
+
+// displayVenue = () => {
+//     let venueName = window.document.getElementById('list')
+//     let venueAddress = window.document.getElementsByClassName('venue-address')
+
+//     venueToShow.map(thisVenue => {
+//         var nameOfTheVenue = this.props.venue.name
+//         var addressOfTheVenue = `${thisVenue.venue.location.address}`
+        
+//           //display venue's name and address to the divs
+//           venueName.innerHTML(nameOfTheVenue)
+//           venueAddress.setContent(addressOfTheVenue)
+// })
+// }
 
     render(){
-        console.log(this.props.eachVenue)
+        console.log(this.props.areas[2])
         return(
-        <div className="venue">
-            <div className="venue-name">{this.props.name}</div>
-            <div className="venue-address"></div>
-        </div>
+        {/* {this.props.venues && this.props.venues.map((venue.idx) => )} */}
         )
     }
 } 
 
-
-    // render()
-    //  {
-    //     
-    //     //
-
-    //     return(
-    //       <div className="venue">
-    //         {/* <div className="venue-name">{eachData.venue.name}</div>
-    //         <div className="venue-address">{eachData.venue.location.address}</div> */}
-    //       </div>
-    //     )
-    //}
+Venues.propTypes = {
+    name: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired
+}

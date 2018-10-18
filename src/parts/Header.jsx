@@ -19,7 +19,7 @@ export default class Header extends React.Component {
         return(
             <div className="header">
                 <h1>Vashon Venues</h1>
-                <input type="search" aria-describedby="search-field" placeholder="Search..." />
+                <input type="search" id="search" aria-describedby="search-field" placeholder="Search..." />
             </div>
         )
     }
