@@ -5,7 +5,7 @@ import Sidebar from './parts/Sidebar';
 import Map from './parts/Map';
 import './responsive.css';
 import axios from 'axios';
-import { slide as Side } from 'react-burger-menu';
+import Side from 'react-burger-menu/lib/menus/slide'
 
 export default class App extends React.Component {
   constructor(props){
@@ -13,8 +13,18 @@ export default class App extends React.Component {
     //別の場所で使うデータを格納する
     this.state = {
       venues: [],
-      query: ''
+      query: '',
+      menuOpen: true
     }
+  }
+
+  showSettings (event) {
+    event.preventDefault();
+  }
+
+  // Open and close the sidebar by click the icons
+  openClose () {
+    this.setState({menuOpen: !this.state.menuOpen})
   }
 
   //下に書いたファンクションをここで呼ぶ
@@ -52,7 +62,7 @@ export default class App extends React.Component {
 
   initMap = () => {
     const map = new window.google.maps.Map(document.getElementById('map'), {
-      center: {lat: 47.424885, lng: -122.470579},
+      center: {lat: 47.425466, lng: -122.474015},
       zoom: 12
     });
 
@@ -88,9 +98,9 @@ export default class App extends React.Component {
       <div id="wrapper">
         <Header />
         <div className="main">
-        <Side width={'30vw'} noOverlay isOpen>
-          <Sidebar venues={this.state.venues}/>
-        </Side>
+          <Side width={'35vw'} noOverlay isOpen={this.state.menuOpen}>
+            <Sidebar venues={this.state.venues} toggle={() => {this.openClose(); }}/>
+          </Side>
           <Map />
         </div>
       </div>

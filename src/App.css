@@ -69,39 +69,57 @@ h2 {
 }
 
 #sidebar {
-  min-height: 100%;
+  display: flex;
+}
+
+#sidebar-contents {
+  width: 90%;
+  min-height: 100vh;
   padding: 10px 30px;
-  overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
-  z-index: 2;
   background: #F6F3DB;
 }
 
-#sidebar i {
-  position: absolute;
-  right: 3vw;
+button {
+  background: #F6F3DB;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 0 10px 10px 0;
+}
+
+button i {
+  cursor: pointer;
   color: #B4CBB3;
 }
 
-#sidebar i:hover {
+button i:hover {
   color: rgba(180, 203, 179, 0.836);
 }
 
-#sidebar button {
-  z-index: 100;
-  color: black;
+.fa-folder-open {
+  display: none;
 }
+
+.bm-menu {
+  background: transparent;
+  -ms-overflow-style:none;
+}
+
+.bm-menu::-webkit-scrollbar{
+  display:none;
+ }
 
 menu {
   width: 100%;
   padding: 0;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 }
 
 menu a {
   display: inline-block;
+  text-align: center;
   padding: 0.25em 0.5em;
   text-decoration: none;
   color: #FFF;
@@ -115,15 +133,6 @@ menu a {
 menu a:active {
   border-bottom: solid 2px #D46565;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
-}
-
-.bm-menu {
-  overflow: hidden !important;
-}
-
-#list {
-  height: 100px;
-  color: black;
 }
 
 input {
