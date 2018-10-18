@@ -1,40 +1,13 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './App.css';
 import Header from './parts/Header';
-// import Sidebar from './parts/Sidebar';
+import Sidebar from './parts/Sidebar';
 import Map from './parts/Map';
 import './responsive.css';
 import axios from 'axios';
 
-class Sidebar extends Component {
-  render(){
-    const venuesList = this.props.venues
-  return(
-    <div id="sidebar">
-      <i className="fas fa-folder-minus fa-2x" 
-        onClick={this.handleSidebar}
-      />
-      <div id="menu">
-        Select the area:
-        <a id="town" className="menu-item" href="/town">Town</a>
-        <a id="burton" className="menu-item" href="/burton">Burton</a>
-        <a id="maury" className="menu-item" href="/maury">Maury</a>
-      </div>
-      <div id="list">
-        <ul className="venue-list">
-          {venuesList.map(venueItem => (
-            <li key={venueItem.venue.id}>
-              <div className="venue-name">{venueItem.venue.name}</div>
-              <div className="venue-address">{venueItem.venue.location.address}</div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
-}
-}
-export default class App extends Component {
+
+export default class App extends React.Component {
   constructor(props){
     super(props);
     //別の場所で使うデータを格納する
