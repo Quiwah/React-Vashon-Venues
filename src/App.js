@@ -5,11 +5,11 @@ import Sidebar from './parts/Sidebar';
 import Map from './parts/Map';
 import './responsive.css';
 import axios from 'axios';
-
+import { slide as Side } from 'react-burger-menu';
 
 export default class App extends React.Component {
   constructor(props){
-    super(props);
+    super(props)
     //別の場所で使うデータを格納する
     this.state = {
       venues: [],
@@ -88,7 +88,9 @@ export default class App extends React.Component {
       <div id="wrapper">
         <Header />
         <div className="main">
+        <Side width={'30vw'} noOverlay isOpen>
           <Sidebar venues={this.state.venues}/>
+        </Side>
           <Map />
         </div>
       </div>
