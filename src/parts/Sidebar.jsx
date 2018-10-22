@@ -1,28 +1,22 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
-const propTypes = {
-  toggle: PropTypes.func,
-};
 
 export default class Sidebar extends React.Component {
   constructor(props) {
     super(props);
-    //clicked venue in sidebar
-    this.clickedVenue = this.clickedVenue.bind(this);
     this.state = {
+      //searched term
       query: '',
-      //searched venues
+      //searched results
       foundVenues: []
     };
   }
 
-  clickedVenue = (key) => {
-    this.setState({ key: key })
-    console.log(key);
+  // Send the ID of clicked venue to the parent component
+  sendClickedVenue(key){
+    this.props.sendData(key);
   }
 
-  // When the close/open button clicked, toggle the booleans
+  // When the close/open button at sidebar clicked, toggle the booleans
   clickIcon() {
     return this.props.toggle();
   }
@@ -70,13 +64,13 @@ export default class Sidebar extends React.Component {
             type="search" id="search"
             aria-describedby="search-field"
             placeholder="Search venues..."
-            onChange={(event) => this.updateQuery(event.target.value)}
+            onChange={(event) => {this.updateQuery(event.target.value)}}
           />
           <div id="list">
             <ul className="venue-list">
               {venuesList.map(venueItem => (
-                <li key={venueItem.venue.id} className="venue-item"
-                    onClick={(event) => this.clickedVenue(venueItem.venue.id)}>
+                <li key={venueItem.venue.id} className="venue-item" aria-label={`${venueItem.venue.name} ${venueItem.venue.location.formattedAddress} ${venueItem.venue.categories[0].name}`}
+                    onClick={(event) => {this.sendClickedVenue(venueItem.venue.id)}}>
                   <div className="venue-name">{venueItem.venue.name}</div>
                   <div className="venue-address">{venueItem.venue.location.address}</div>
                 </li>
@@ -92,5 +86,3 @@ export default class Sidebar extends React.Component {
     );
   }
 }
-
-Sidebar.propTypes = propTypes;

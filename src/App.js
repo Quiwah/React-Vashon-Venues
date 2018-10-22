@@ -10,30 +10,27 @@ import Side from 'react-burger-menu/lib/menus/slide'
 export default class App extends React.Component {
   constructor(props){
     super(props);
-    this.bounceMarkerbyClickName = this.bounceMarkerbyClickName.bind(this);
-    this.bounceMarker = this.bounceMarker.bind(this);
-    // Store the data for later
+    this.getClickedVenue = this.getClickedVenue.bind(this);
+    // Store the data for later use
     this.state = {
+      //map
       venues: [],
+      markers: [],
+      //search
       query: '',
-      menuOpen: true,
-      clickInSidebar: ''
+      //sidebar
+      menuOpen: true
     };
   }
 
-  // When a venue is clicked in sidebar, the marker bounces
-  bounceMarkerbyClickName(key){
-    this.setState({
-      clickInSidebar: key
-    });
-    console.log(this.clickInSidebar);
-  }
+  // handleClickInSidebar = (key) => {
+  //   // let clickedAtSide = this.state.markers.find(marker => marker.id === key);
+  //   this.setState({key: !this.getClickedVenue})
+  //   // window.google.maps.event.trigger(clickedAtSide, 'click')
+  //   console.log(key);
+  // }
 
-  bounceMarker = (key) => {
-    this.state.marker.setAnimation(window.google.maps.Animation.BOUNCE);
-    console.log(this.key + 'もらった！')
-  }
-
+  //For sidebar slide
   showSettings (event) {
     event.preventDefault();
   }
@@ -96,36 +93,44 @@ export default class App extends React.Component {
       position: {lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng},
       map: map,
       title: myVenue.venue.name,
-      icon: {url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"}
+      icon: {url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"},
+      id: myVenue.venue.id
     });
+    this.state.markers.push(marker);
 
-    // When an marker is clicked
+    // When a marker is clicked...
     marker.addListener('click', function() {
-      // Put the info in the infowindow
+      // put the info in the infowindow
       infowindow.setContent(contentString);
-      // Open an infowindow
+      // open an infowindow
       infowindow.open(map, marker);
-      // Set the center of the map to the marker and zoom in
+      // set the center of the map to the marker and zoom in
       map.setZoom(15);
       map.setCenter(marker.getPosition());
     });
 
-      //When user closes the infowindow, the map zooms out
-      window.google.maps.event.addListener(infowindow,'closeclick',function(){
-        map.setZoom(12);
-      });
+    //When user closes the infowindow, the map zooms out
+    window.google.maps.event.addListener(infowindow,'closeclick',function(){
+      map.setZoom(12);
+    });
   })
+  }
+
+  // When a venue is clicked in the sidebar, receive the ID
+  getClickedVenue = (key) => {
+    let clickedAtSide = this.state.markers.find(marker => marker.id === key);
+    window.google.maps.event.trigger(clickedAtSide, 'click');
+    // Bounce the marker the name clicked
+    clickedAtSide.setAnimation(window.google.maps.Animation.BOUNCE);
   }
   
   render() {
-    //後で消す
-    console.log(this.state.venues);
     return (
       <div id="wrapper">
         <Header />
         <div className="main">
           <Side width={'35vw'} noOverlay isOpen={this.state.menuOpen}>
-            <Sidebar venues={this.state.venues} toggle={() => {this.openClose(); }} id={this.state.id} clickBounce={this.bounceMarkerbyClickName}/>
+            <Sidebar venues={this.state.venues} toggle={() => {this.openClose()}} id={this.state.id} sendData={this.getClickedVenue}/>
           </Side>
           <Map />
         </div>
