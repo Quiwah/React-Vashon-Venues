@@ -55,7 +55,6 @@ export default class App extends React.Component {
     const parameters = {
       client_id: 'VPYE1ATQWP3JJ42VT0OWU42SVVP14CF5TIANTCAWHLVTKICP',
       client_secret: 'ZE20VQRHIA1NN2K5025Q5DYJKQHILLOLF4SVS3ELMSHGSZIH',
-      query: 'food',
       ll: '47.424885, -122.470579',
       v: '20190323'
     }
@@ -79,40 +78,40 @@ export default class App extends React.Component {
       zoom: 12
     });
 
-  // Create infowindow (if put this in the 'this' below, it would duplicated)
-  const infowindow = new window.google.maps.InfoWindow();
+    // Create infowindow (if put this in the 'this' below, it would duplicated)
+    const infowindow = new window.google.maps.InfoWindow();
 
-  // Map the places from Forsquare
-  // eslint-disable-next-line
-  this.state.venues.map(myVenue => {
+    // Map the places from Forsquare
     // eslint-disable-next-line
-    let contentString = '<font style="color: #BD5A5A; font-weight: 800">' + `${myVenue.venue.name}` + '</font>' + ' (' + `${myVenue.venue.categories[0].name}` + ') ' + '<br>' + `${myVenue.venue.location.address}`;
+    this.state.venues.map(myVenue => {
+      // eslint-disable-next-line
+      let contentString = '<font style="color: #BD5A5A; font-weight: 800">' + `${myVenue.venue.name}` + '</font>' + ' (' + `${myVenue.venue.categories[0].name}` + ') ' + '<br>' + `${myVenue.venue.location.address}`;
 
-    //Create marker
-    let marker = new window.google.maps.Marker({
-      position: {lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng},
-      map: map,
-      title: myVenue.venue.name,
-      icon: {url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"},
-      id: myVenue.venue.id
-    });
-    this.state.markers.push(marker);
+      //Create marker
+      let marker = new window.google.maps.Marker({
+        position: {lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng},
+        map: map,
+        title: myVenue.venue.name,
+        icon: {url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"},
+        id: myVenue.venue.id
+      });
+      this.state.markers.push(marker);
 
-    // When a marker is clicked...
-    marker.addListener('click', function() {
-      // put the info in the infowindow
-      infowindow.setContent(contentString);
-      // open an infowindow
-      infowindow.open(map, marker);
-      // set the center of the map to the marker and zoom in
-      map.setZoom(15);
-      map.setCenter(marker.getPosition());
-    });
+      // When a marker is clicked...
+      marker.addListener('click', function() {
+        // put the info in the infowindow
+        infowindow.setContent(contentString);
+        // open an infowindow
+        infowindow.open(map, marker);
+        // set the center of the map to the marker and zoom in
+        map.setZoom(15);
+        map.setCenter(marker.getPosition());
+      });
 
-    //When user closes the infowindow, the map zooms out
-    window.google.maps.event.addListener(infowindow,'closeclick',function(){
-      map.setZoom(12);
-    });
+      //When user closes the infowindow, the map zooms out
+      window.google.maps.event.addListener(infowindow,'closeclick',function(){
+        map.setZoom(12);
+      });
   })
   }
 
@@ -120,8 +119,11 @@ export default class App extends React.Component {
   getClickedVenue = (key) => {
     let clickedAtSide = this.state.markers.find(marker => marker.id === key);
     window.google.maps.event.trigger(clickedAtSide, 'click');
-    // Bounce the marker the name clicked
+    // Bounce the marker on the map
     clickedAtSide.setAnimation(window.google.maps.Animation.BOUNCE);
+    setTimeout(function(){
+      clickedAtSide.setAnimation(null);
+    }, 1500);
   }
   
   render() {
