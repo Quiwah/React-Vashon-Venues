@@ -33,10 +33,6 @@
   }
 }
 
-#map {
-  height: 100vh;
-}
-
 html, body {
   height: 100%;
   margin: 0;
@@ -44,11 +40,19 @@ html, body {
   font-family: 'K2D', sans-serif;
 }
 
+#wrapper,
+#map {
+  height: 100vh;
+}
+
 .header {
   background: #96B896;
   color: #F6F3DB;
   padding: 5px 10px;
   z-index: 3;
+  width: 100%;
+  position: fixed;
+  top: 0;
 }
 
 h1 {

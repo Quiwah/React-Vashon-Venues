@@ -9,13 +9,29 @@ import Side from 'react-burger-menu/lib/menus/slide'
 
 export default class App extends React.Component {
   constructor(props){
-    super(props)
-    //別の場所で使うデータを格納する
+    super(props);
+    this.bounceMarkerbyClickName = this.bounceMarkerbyClickName.bind(this);
+    this.bounceMarker = this.bounceMarker.bind(this);
+    // Store the data for later
     this.state = {
       venues: [],
       query: '',
-      menuOpen: true
-    }
+      menuOpen: true,
+      clickInSidebar: ''
+    };
+  }
+
+  // When a venue is clicked in sidebar, the marker bounces
+  bounceMarkerbyClickName(key){
+    this.setState({
+      clickInSidebar: key
+    });
+    console.log(this.clickInSidebar);
+  }
+
+  bounceMarker = (key) => {
+    this.state.marker.setAnimation(window.google.maps.Animation.BOUNCE);
+    console.log(this.key + 'もらった！')
   }
 
   showSettings (event) {
@@ -27,7 +43,7 @@ export default class App extends React.Component {
     this.setState({menuOpen: !this.state.menuOpen})
   }
 
-  //下に書いたファンクションをここで呼ぶ
+  // Call the function from below
   componentDidMount() {
     this.getVenues();
   }
@@ -66,10 +82,10 @@ export default class App extends React.Component {
       zoom: 12
     });
 
-  //Create infowindow 下のthis.の中に入れちゃうと重複する
+  // Create infowindow (if put this in the 'this' below, it would duplicated)
   const infowindow = new window.google.maps.InfoWindow();
 
-  //フォースクエアから引っ張ってきた場所ひとつひとつに対してマーカーを作る
+  // Map the places from Forsquare
   // eslint-disable-next-line
   this.state.venues.map(myVenue => {
     // eslint-disable-next-line
@@ -83,23 +99,33 @@ export default class App extends React.Component {
       icon: {url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"}
     });
 
-    //マーカーがクリックされると
+    // When an marker is clicked
     marker.addListener('click', function() {
-      //インフォウインドウの内容を変更
+      // Put the info in the infowindow
       infowindow.setContent(contentString);
-      //インフォウインドウを開く
+      // Open an infowindow
       infowindow.open(map, marker);
+      // Set the center of the map to the marker and zoom in
+      map.setZoom(15);
+      map.setCenter(marker.getPosition());
     });
+
+      //When user closes the infowindow, the map zooms out
+      window.google.maps.event.addListener(infowindow,'closeclick',function(){
+        map.setZoom(12);
+      });
   })
   }
   
   render() {
+    //後で消す
+    console.log(this.state.venues);
     return (
       <div id="wrapper">
         <Header />
         <div className="main">
           <Side width={'35vw'} noOverlay isOpen={this.state.menuOpen}>
-            <Sidebar venues={this.state.venues} toggle={() => {this.openClose(); }}/>
+            <Sidebar venues={this.state.venues} toggle={() => {this.openClose(); }} id={this.state.id} clickBounce={this.bounceMarkerbyClickName}/>
           </Side>
           <Map />
         </div>
