@@ -21,29 +21,23 @@ export default class Sidebar extends React.Component {
     return this.props.toggle();
   }
 
-  //検索機能ーTODO
-  updateQuery = (query) => {
-    this.setState({
-      query: query
-    })
-    this.updateFoundVenues(query);
+  // Search function
+  updateQuery(event){
+    this.setState({query: event.target.value});
   }
 
-  //検索機能ーTODO
-  updateFoundVenues = (query) => {
-    if (query) {
-      this.props.venues.search(query)
-      .then((foundVenues) => {
-        if (foundVenues.error) {
-          this.setState({ foundVenues: [] });
-        } else if (this.state.query === query) {
-          this.setState({ foundVenues: foundVenues });
-        }
-      })
-      console.log(this.foundVenues)
-    } else {
-      this.setState({ foundVenues: [] });
-    }
+  // Handle the inputed words
+  updateFoundVenues (event, foundVenues){
+    event.preventDefault();
+    this.props.venues.filter(this.state.query)
+    .then((foundVenues) => {
+      if (foundVenues.error) {
+        this.setState({ foundVenues: [] });
+      } else {
+        this.setState({ foundVenues: foundVenues });
+      }
+  });
+    console.log(foundVenues)
   }
 
   render(){
@@ -62,9 +56,10 @@ export default class Sidebar extends React.Component {
           </div>
           <input
             type="search" id="search"
-            aria-describedby="search-field"
+            aria-label="Search through the venues"
             placeholder="Search venues..."
-            onChange={(event) => {this.updateQuery(event.target.value)}}
+            value={this.state.value}
+            onChange={this.updateQuery}
           />
           <div id="list">
             <ul className="venue-list">

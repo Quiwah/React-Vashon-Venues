@@ -23,13 +23,6 @@ export default class App extends React.Component {
     };
   }
 
-  // handleClickInSidebar = (key) => {
-  //   // let clickedAtSide = this.state.markers.find(marker => marker.id === key);
-  //   this.setState({key: !this.getClickedVenue})
-  //   // window.google.maps.event.trigger(clickedAtSide, 'click')
-  //   console.log(key);
-  // }
-
   //For sidebar slide
   showSettings (event) {
     event.preventDefault();
@@ -61,10 +54,10 @@ export default class App extends React.Component {
 
     axios.get(endPoint + new URLSearchParams(parameters))
       .then(response => {
-        //ここで、上で作った配列にデータを入れる
+        //Put the received data into the array
         this.setState({
           venues: response.data.response.groups[0].items
-          //ここより前に実行すると配列が空になってしまう
+          //This needs to be done here otherwise the array would be empty
         }, this.renderMap());
       })
       .catch(error => {
@@ -108,9 +101,10 @@ export default class App extends React.Component {
         map.setCenter(marker.getPosition());
       });
 
-      //When user closes the infowindow, the map zooms out
+      //When user closes the infowindow, the map zooms out and back to the center of the island
       window.google.maps.event.addListener(infowindow,'closeclick',function(){
         map.setZoom(12);
+        map.setCenter({lat: 47.425466, lng: -122.474015});
       });
   })
   }
