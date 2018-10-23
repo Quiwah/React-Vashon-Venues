@@ -99,6 +99,11 @@ export default class App extends React.Component {
         // set the center of the map to the marker and zoom in
         map.setZoom(15);
         map.setCenter(marker.getPosition());
+        // bounce the marker
+        marker.setAnimation(window.google.maps.Animation.BOUNCE);
+        setTimeout(function(){
+          marker.setAnimation(null);
+        }, 1500);
       });
 
       //When user closes the infowindow, the map zooms out and back to the center of the island
