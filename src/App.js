@@ -35,7 +35,7 @@ export default class App extends React.Component {
 
   // Call the function from below
   componentDidMount() {
-    this.getVenues();
+    this.getVenues()
   }
 
   renderMap = () => {
@@ -124,6 +124,13 @@ export default class App extends React.Component {
       clickedAtSide.setAnimation(null);
     }, 1500);
   }
+
+  // Get filtered venues from sidebar
+  sendVenues = (filteredVenues) => {
+    this.setState({
+      venues: filteredVenues
+    })
+  }
   
   render() {
     return (
@@ -131,7 +138,12 @@ export default class App extends React.Component {
         <Header />
         <div className="main">
           <Side width={'35vw'} noOverlay isOpen={this.state.menuOpen}>
-            <Sidebar venues={this.state.venues} toggle={() => {this.openClose()}} id={this.state.id} sendData={this.getClickedVenue}/>
+            <Sidebar
+              venues={this.state.venues}
+              toggle={() => {this.openClose()}} id={this.state.id}
+              sendData={this.getClickedVenue}
+              sendVenues={this.sendVenues}
+            />
           </Side>
           <Map />
         </div>
