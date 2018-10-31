@@ -97,6 +97,10 @@ button {
   left: 305px;
 }
 
+button:focus {
+  outline:0;
+}
+
 button i {
   cursor: pointer;
   color: #B4CBB3;
