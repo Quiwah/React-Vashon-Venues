@@ -13,9 +13,9 @@ export default class Sidebar extends React.Component {
     };
   }
 
-  updateVenues = event => {
+  updateVenues(e) {
     const { venues } = this.props;
-    const { value } = event.target;
+    const { value } = e.target;
     let filteredVenues = [];
     // Filter venues by the query
     venues.forEach(

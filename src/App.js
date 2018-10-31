@@ -77,6 +77,8 @@ export default class App extends React.Component {
     // Map the places from Forsquare
     // eslint-disable-next-line
     this.state.venues.map(venue => {
+      //If address was undefined, display a message instead
+      let checkAddress = (venue.venue.location.address != null)?venue.venue.location.address:'No address provided';
       //Create marker
       let marker = new window.google.maps.Marker({
         position: {lat: venue.venue.location.lat, lng: venue.venue.location.lng},
@@ -85,7 +87,7 @@ export default class App extends React.Component {
         icon: {url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"},
         id: venue.venue.id,
         genre: venue.venue.categories[0].name,
-        address: venue.venue.location.address
+        address: JSON.stringify(checkAddress)
       });
       this.state.markers.push(marker);
 
