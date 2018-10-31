@@ -130,10 +130,10 @@ export default class App extends React.Component {
   // Get filtered venues from sidebar
   sendVenues = (filteredVenues) => {
     this.setState({
+      filteredVenues: filteredVenues,
       venues: filteredVenues
     });
-    console.log(this.state.venues);
-    this.initMap(this.venues);
+    this.initMap(this.state.venues);
   }
   
   render() {

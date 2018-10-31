@@ -7,7 +7,7 @@ const Search = ({ updateVenues }) => {
                 type="search" id="search"
                 aria-label="Search through the venues"
                 placeholder="Search venues..."
-                onChange={e => {updateVenues(e);}}
+                onInput={e => {updateVenues(e);}}
             />
         </form>
     );
