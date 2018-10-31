@@ -28,13 +28,6 @@ export default class Sidebar extends React.Component {
       }
     );
     this.props.sendVenues(filteredVenues);
-
-    // this.componentWillMount = () => {
-    //   const { filteredVenues } = this.props;
-    //   this.setState({
-    //     filteredVenues: filteredVenues
-    //   });
-    // };
   }
 
   // Send the ID of clicked venue to the parent component
