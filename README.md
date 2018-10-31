@@ -2,7 +2,7 @@
 
 This app is the project #7 of [Udacity Front End Web Development Nanodegree program](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001).
 
-This map displays recommended places on Vashon. User can search places and filter the result by area.
+This map displays recommended places on Vashon. User can search to filter the result.
 
 ## Create React App
 
