@@ -36,4 +36,3 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 [Font Awesome](https://fontawesome.com)
 
 [Elharony's tutorials to display the map](https://www.youtube.com/channel/UCcWSbBe_s-T_gZRnqFbtyIA)
-

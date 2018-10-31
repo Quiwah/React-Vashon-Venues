@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Search = ({ query, updateVenues }) => {
+const Search = ({ updateVenues }) => {
     return(
         <form aria-label="Filter the Venues" name="filterSection">
             <input
@@ -8,7 +8,6 @@ const Search = ({ query, updateVenues }) => {
                 aria-label="Search through the venues"
                 placeholder="Search venues..."
                 onChange={e => {updateVenues(e);}}
-                // value={this.state.query}
             />
         </form>
     );

@@ -77,7 +77,9 @@ h2 {
 }
 
 #sidebar-contents {
-  width: 90%;
+  display: block;
+  position: relative;
+  width: 250px;
   min-height: 100vh;
   padding: 10px 30px;
   -webkit-overflow-scrolling: touch;
@@ -86,11 +88,13 @@ h2 {
 
 button {
   background: #F6F3DB;
-  display: inline-block;
+  display: block;
   width: 50px;
   height: 50px;
   border: none;
   border-radius: 0 10px 10px 0;
+  position: absolute;
+  left: 305px;
 }
 
 button i {
@@ -109,6 +113,10 @@ button i:hover {
 .bm-menu {
   background: transparent;
   -ms-overflow-style:none;
+}
+
+.bm-menu-wrap {
+  width: auto !important;
 }
 
 .bm-menu::-webkit-scrollbar{

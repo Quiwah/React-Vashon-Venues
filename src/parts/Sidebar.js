@@ -13,39 +13,31 @@ export default class Sidebar extends React.Component {
     };
   }
 
-  // componentDidMount() {
-  //   this.setState({
-  //     venues: this.props.venues,
-  //     filteredVenues: this.props.venues
-  //   })
-  // }
-
   updateVenues = event => {
     const { venues } = this.props;
     const { value } = event.target;
-    const filteredVenues = [];
+    let filteredVenues = [];
     // Filter venues by the query
     venues.forEach(
       venue => {
       if(venue.venue.name.toLowerCase().indexOf(value.toLowerCase()) >= 0){
         filteredVenues.push(venue);
-        this.props.sendVenues(filteredVenues);
+      } else {
+        this.setState({filteredVenues: venues});
       }
-}
+      }
     );
-    this.setState({
-      filteredVenues: filteredVenues,
-      query: value
-    });
+    this.props.sendVenues(filteredVenues);
+    // this.setState({
+    //   filteredVenues
+    // });
 
-    this.componentWillMount = () => {
-      const { filteredVenues } = this.props;
-      this.setState({
-        filteredVenues: filteredVenues
-      });
-    };
-
-    this.setState({filteredVenues: []});
+    // this.componentWillMount = () => {
+    //   const { filteredVenues } = this.props;
+    //   this.setState({
+    //     filteredVenues: filteredVenues
+    //   });
+    // };
   }
 
   // Send the ID of clicked venue to the parent component
@@ -55,6 +47,12 @@ export default class Sidebar extends React.Component {
 
   // When the close/open button at sidebar clicked, toggle the booleans
   clickIcon() {
+    const icon = window.document.getElementById('icon');
+    if(icon.className === "far fa-arrow-alt-circle-left fa-2x"){
+      icon.className = "far fa-arrow-alt-circle-right fa-2x";
+    } else {
+      icon.className = "far fa-arrow-alt-circle-left fa-2x";
+    }
     return this.props.toggle();
   }
 
@@ -87,8 +85,7 @@ export default class Sidebar extends React.Component {
           </div>
         </div>
         <button onClick={() => {this.clickIcon();}}>
-          <i className="fas fa-folder-minus fa-2x" title="Close the sidebar"/>
-          <i className="fas fa-folder-open fa-2x" title="Open the sidebar"/>
+          <i id="icon" className="far fa-arrow-alt-circle-left fa-2x"></i>
         </button>
       </div>
     );

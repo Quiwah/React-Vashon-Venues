@@ -76,19 +76,21 @@ export default class App extends React.Component {
 
     // Map the places from Forsquare
     // eslint-disable-next-line
-    this.state.venues.map(myVenue => {
-      // eslint-disable-next-line
-      let contentString = '<font style="color: #BD5A5A; font-weight: 800">' + `${myVenue.venue.name}` + '</font>' + ' (' + `${myVenue.venue.categories[0].name}` + ') ' + '<br>' + `${myVenue.venue.location.address}`;
-
+    this.state.venues.map(venue => {
       //Create marker
       let marker = new window.google.maps.Marker({
-        position: {lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng},
+        position: {lat: venue.venue.location.lat, lng: venue.venue.location.lng},
         map: map,
-        title: myVenue.venue.name,
+        title: venue.venue.name,
         icon: {url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"},
-        id: myVenue.venue.id
+        id: venue.venue.id,
+        genre: venue.venue.categories[0].name,
+        address: venue.venue.location.address
       });
       this.state.markers.push(marker);
+
+      // eslint-disable-next-line
+      let contentString = '<font style="color: #BD5A5A; font-weight: 800">' + marker.title + '</font>' + ' (' + marker.genre + ') ' + '<br>' + marker.address;
 
       // When a marker is clicked...
       marker.addListener('click', function() {
@@ -129,7 +131,9 @@ export default class App extends React.Component {
   sendVenues = (filteredVenues) => {
     this.setState({
       venues: filteredVenues
-    })
+    });
+    console.log(this.state.venues);
+    this.initMap(this.venues);
   }
   
   render() {
