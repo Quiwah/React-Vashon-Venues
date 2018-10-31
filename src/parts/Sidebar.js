@@ -57,14 +57,14 @@ export default class Sidebar extends React.Component {
     return(
       <div id="sidebar">
         <div id="sidebar-contents">
-          <div id="menu">
+          {/* <div id="menu">
             <h2>Filter by category:</h2>
               <menu>
                 <a id="Eat" className="menu-item" href="/eat" title="town">Eat</a>
                 <a id="Shop" className="menu-item" href="/shop" title="burton">Shop</a>
                 <a id="Other" className="menu-item" href="/other" title="maury">Other</a>
               </menu>
-          </div>
+          </div> */}
             <Search
               query={this.state.query}
               updateVenues={this.updateVenues}
