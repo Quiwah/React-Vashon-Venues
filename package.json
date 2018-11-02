@@ -2,6 +2,7 @@
   "name": "neighborhood-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://github.com/Quiwah/React-Vashon-Venues",
   "dependencies": {
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
@@ -15,6 +16,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
