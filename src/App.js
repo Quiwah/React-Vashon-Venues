@@ -6,7 +6,7 @@ import Map from './parts/Map';
 import './responsive.css';
 import axios from 'axios';
 import Side from 'react-burger-menu/lib/menus/slide'
-
+import './marker.png';
 export default class App extends React.Component {
   constructor(props){
     super(props);
@@ -68,7 +68,223 @@ export default class App extends React.Component {
   initMap = () => {
     const map = new window.google.maps.Map(document.getElementById('map'), {
       center: {lat: 47.425466, lng: -122.474015},
-      zoom: 12
+      zoom: 12,
+      styles: 
+      [
+        {
+          "elementType": "geometry",
+          "stylers": [
+            {
+              "color": "#ebe3cd"
+            }
+          ]
+        },
+        {
+          "elementType": "labels.text.fill",
+          "stylers": [
+            {
+              "color": "#523735"
+            }
+          ]
+        },
+        {
+          "elementType": "labels.text.stroke",
+          "stylers": [
+            {
+              "color": "#f5f1e6"
+            }
+          ]
+        },
+        {
+          "featureType": "administrative",
+          "elementType": "geometry.stroke",
+          "stylers": [
+            {
+              "color": "#c9b2a6"
+            }
+          ]
+        },
+        {
+          "featureType": "administrative.land_parcel",
+          "elementType": "geometry.stroke",
+          "stylers": [
+            {
+              "color": "#dcd2be"
+            }
+          ]
+        },
+        {
+          "featureType": "administrative.land_parcel",
+          "elementType": "labels.text.fill",
+          "stylers": [
+            {
+              "color": "#ae9e90"
+            }
+          ]
+        },
+        {
+          "featureType": "landscape.natural",
+          "elementType": "geometry",
+          "stylers": [
+            {
+              "color": "#dfd2ae"
+            }
+          ]
+        },
+        {
+          "featureType": "poi",
+          "elementType": "geometry",
+          "stylers": [
+            {
+              "color": "#dfd2ae"
+            }
+          ]
+        },
+        {
+          "featureType": "poi",
+          "elementType": "labels.text.fill",
+          "stylers": [
+            {
+              "color": "#93817c"
+            }
+          ]
+        },
+        {
+          "featureType": "poi.park",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "color": "#a5b076"
+            }
+          ]
+        },
+        {
+          "featureType": "poi.park",
+          "elementType": "labels.text.fill",
+          "stylers": [
+            {
+              "color": "#447530"
+            }
+          ]
+        },
+        {
+          "featureType": "road",
+          "elementType": "geometry",
+          "stylers": [
+            {
+              "color": "#f5f1e6"
+            }
+          ]
+        },
+        {
+          "featureType": "road.arterial",
+          "elementType": "geometry",
+          "stylers": [
+            {
+              "color": "#fdfcf8"
+            }
+          ]
+        },
+        {
+          "featureType": "road.highway",
+          "elementType": "geometry",
+          "stylers": [
+            {
+              "color": "#f8c967"
+            }
+          ]
+        },
+        {
+          "featureType": "road.highway",
+          "elementType": "geometry.stroke",
+          "stylers": [
+            {
+              "color": "#e9bc62"
+            }
+          ]
+        },
+        {
+          "featureType": "road.highway.controlled_access",
+          "elementType": "geometry",
+          "stylers": [
+            {
+              "color": "#e98d58"
+            }
+          ]
+        },
+        {
+          "featureType": "road.highway.controlled_access",
+          "elementType": "geometry.stroke",
+          "stylers": [
+            {
+              "color": "#db8555"
+            }
+          ]
+        },
+        {
+          "featureType": "road.local",
+          "elementType": "labels.text.fill",
+          "stylers": [
+            {
+              "color": "#806b63"
+            }
+          ]
+        },
+        {
+          "featureType": "transit.line",
+          "elementType": "geometry",
+          "stylers": [
+            {
+              "color": "#dfd2ae"
+            }
+          ]
+        },
+        {
+          "featureType": "transit.line",
+          "elementType": "labels.text.fill",
+          "stylers": [
+            {
+              "color": "#8f7d77"
+            }
+          ]
+        },
+        {
+          "featureType": "transit.line",
+          "elementType": "labels.text.stroke",
+          "stylers": [
+            {
+              "color": "#ebe3cd"
+            }
+          ]
+        },
+        {
+          "featureType": "transit.station",
+          "elementType": "geometry",
+          "stylers": [
+            {
+              "color": "#dfd2ae"
+            }
+          ]
+        },
+        {
+          "featureType": "water",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "color": "#b9d3c2"
+            }
+          ]
+        },
+        {
+          "featureType": "water",
+          "elementType": "labels.text.fill",
+          "stylers": [
+            {
+              "color": "#92998d"
+            }
+          ]
+        }
+      ]
     });
 
     // Create infowindow (if put this in the 'this' below, it would duplicated)
@@ -79,16 +295,23 @@ export default class App extends React.Component {
     this.state.venues.map(venue => {
       //If address was undefined, display a message instead
       let checkAddress = (venue.venue.location.address != null)?venue.venue.location.address:'No address provided';
+
       //Create marker
       let marker = new window.google.maps.Marker({
         position: {lat: venue.venue.location.lat, lng: venue.venue.location.lng},
         map: map,
         title: venue.venue.name,
-        icon: {url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"},
         id: venue.venue.id,
         genre: venue.venue.categories[0].name,
         address: JSON.stringify(checkAddress)
       });
+      let iconMarker = new window.google.maps.MarkerImage(
+        'marker.png',
+        null, /* size is determined at runtime */
+        null, /* origin is 0,0 */
+        null, /* anchor is bottom center of the scaled image */
+        new window.google.maps.Size(32, 32)
+    );
       this.state.markers.push(marker);
 
       // eslint-disable-next-line
@@ -132,9 +355,9 @@ export default class App extends React.Component {
   // Get filtered venues from sidebar
   sendVenues = (filteredVenues) => {
     this.setState({
-      filteredVenues: filteredVenues,
       venues: filteredVenues
     });
+    
     this.initMap(this.state.venues);
   }
   

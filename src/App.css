@@ -46,8 +46,8 @@ html, body {
 }
 
 .header {
-  background: #96B896;
-  color: #F6F3DB;
+  background: rgba(233, 188, 171, 0.75);
+  color: #506073;
   padding: 5px 10px;
   z-index: 3;
   width: 100%;
@@ -61,7 +61,7 @@ h1 {
 }
 
 h2 {
-  color: #96B896;
+  color: #506073;
   font-weight: bold;
   padding: 0;
   margin: 0;
@@ -83,11 +83,11 @@ h2 {
   min-height: 100vh;
   padding: 10px 30px;
   -webkit-overflow-scrolling: touch;
-  background: #F6F3DB;
+  background: #f5edeb;
 }
 
 button {
-  background: #F6F3DB;
+  background: #f5edeb;
   display: block;
   width: 50px;
   height: 50px;
@@ -103,11 +103,11 @@ button:focus {
 
 button i {
   cursor: pointer;
-  color: #B4CBB3;
+  color: #506073;
 }
 
 button i:hover {
-  color: rgba(180, 203, 179, 0.836);
+  color: #e9bcab;
 }
 
 .fa-folder-open {
@@ -139,15 +139,15 @@ menu a {
   padding: 0.25em 0.5em;
   text-decoration: none;
   color: #FFF;
-  background: #D46565;
-  border-bottom: solid 2px #96B896;
+  background: #e9bcab;
+  border-bottom: solid 2px #e9bcab;
   border-radius: 4px;
   box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
   font-weight: bold;
 }
 
 menu a:active {
-  border-bottom: solid 2px #D46565;
+  border-bottom: solid 2px #9ebebb;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
 }
 
@@ -160,10 +160,10 @@ ul {
 }
 
 ul li {
-  color: #96B896;
-  border-left: solid 6px #B4CBB3;
+  color: #506073;
+  border-left: solid 6px #506073;
   border-bottom: solid 1px #dadada;
-  background: #F6F3DB;
+  background: #f5edeb;
   margin-bottom: 5px;
   line-height: 1.5;
   padding: 0.5em;
@@ -172,5 +172,5 @@ ul li {
 
 .venue-name {
   font-weight: bold;
-  color: #D46565;
+  color: #2e4057;
 }

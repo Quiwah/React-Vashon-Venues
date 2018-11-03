@@ -13,6 +13,27 @@ export default class Sidebar extends React.Component {
     };
   }
 
+  // Filter venues by category
+  // sortByCategory() {
+  //   const eat = window.getDocumentByID('eat');
+  //   const shop = window.getDocumentByID('shop');
+  //   const other = window.getDocumentByID('other');
+
+  //   let venuesByGenre = [];
+
+  //   if(sortByCategory == 'food' || 'restaurant' || 'eat'){
+  //     venuesByGenre = venues.forEach(
+  //       venue => {
+  //         let sortByCategory = venue.venue.categories[0].name.toLowerCase().indexOf(value.toLowerCase());
+  //       });
+  //   } else {
+  //     this.setState({venuesByGenre: venues});
+  //   }
+  //   venuesByGenre.push(venue);
+
+  //   this.props.sendVenues(venuesByGenre);
+  // }
+
   updateVenues(e) {
     const { venues } = this.props;
     const { value } = e.target;
@@ -26,8 +47,9 @@ export default class Sidebar extends React.Component {
 
       if(checkName >= 0 || checkCategory >= 0){
         filteredVenues.push(venue);
-      } else {
-        this.setState({filteredVenues: venues});
+      }
+       else {
+        this.setState({filteredVenues: ''});
       }
       }
     );
@@ -54,14 +76,14 @@ export default class Sidebar extends React.Component {
     return(
       <div id="sidebar">
         <div id="sidebar-contents">
-          {/* <div id="menu">
+          <div id="menu">
             <h2>Filter by category:</h2>
               <menu>
-                <a id="Eat" className="menu-item" href="/eat" title="town">Eat</a>
-                <a id="Shop" className="menu-item" href="/shop" title="burton">Shop</a>
-                <a id="Other" className="menu-item" href="/other" title="maury">Other</a>
+                <a id="Eat" className="menu-item" href="/eat" title="eat">Eat</a>
+                <a id="Shop" className="menu-item" href="/shop" title="shop">Shop</a>
+                <a id="Other" className="menu-item" href="/other" title="other">Other</a>
               </menu>
-          </div> */}
+          </div>
             <Search
               query={this.state.query}
               updateVenues={this.updateVenues}
