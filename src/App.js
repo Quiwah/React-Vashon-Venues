@@ -301,17 +301,11 @@ export default class App extends React.Component {
         position: {lat: venue.venue.location.lat, lng: venue.venue.location.lng},
         map: map,
         title: venue.venue.name,
+        // icon: 'marker.png',
         id: venue.venue.id,
         genre: venue.venue.categories[0].name,
         address: JSON.stringify(checkAddress)
       });
-      let iconMarker = new window.google.maps.MarkerImage(
-        'marker.png',
-        null, /* size is determined at runtime */
-        null, /* origin is 0,0 */
-        null, /* anchor is bottom center of the scaled image */
-        new window.google.maps.Size(32, 32)
-    );
       this.state.markers.push(marker);
 
       // eslint-disable-next-line
