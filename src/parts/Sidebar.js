@@ -17,10 +17,14 @@ export default class Sidebar extends React.Component {
     const { venues } = this.props;
     const { value } = e.target;
     let filteredVenues = [];
+
     // Filter venues by the query
     venues.forEach(
       venue => {
-      if(venue.venue.name.toLowerCase().indexOf(value.toLowerCase()) >= 0){
+      let checkName = venue.venue.name.toLowerCase().indexOf(value.toLowerCase());
+      let checkCategory = venue.venue.categories[0].name.toLowerCase().indexOf(value.toLowerCase());
+
+      if(checkName >= 0 || checkCategory >= 0){
         filteredVenues.push(venue);
       } else {
         this.setState({filteredVenues: venues});

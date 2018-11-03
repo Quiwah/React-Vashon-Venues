@@ -6,7 +6,7 @@ const Search = ({ updateVenues }) => {
             <input
                 type="search" id="search"
                 aria-label="Search through the venues"
-                placeholder="Search venues..."
+                placeholder="Search..."
                 onInput={e => {updateVenues(e);}}
             />
         </form>
