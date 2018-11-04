@@ -6,7 +6,7 @@ import Map from './parts/Map';
 import './responsive.css';
 import axios from 'axios';
 import Side from 'react-burger-menu/lib/menus/slide'
-import './marker.png';
+
 export default class App extends React.Component {
   constructor(props){
     super(props);
@@ -297,15 +297,17 @@ export default class App extends React.Component {
       let checkAddress = (venue.venue.location.address != null)?venue.venue.location.address:'No address provided';
 
       //Create marker
-      let marker = new window.google.maps.Marker({
-        position: {lat: venue.venue.location.lat, lng: venue.venue.location.lng},
-        map: map,
-        title: venue.venue.name,
-        // icon: 'marker.png',
-        id: venue.venue.id,
-        genre: venue.venue.categories[0].name,
-        address: JSON.stringify(checkAddress)
-      });
+      let markerDetails = {
+          position: {lat: venue.venue.location.lat, lng: venue.venue.location.lng},
+          map: map,
+          title: venue.venue.name,
+          icon: 'marker.png',
+          id: venue.venue.id,
+          genre: venue.venue.categories[0].name,
+          address: JSON.stringify(checkAddress)
+      }
+
+      let marker = new window.google.maps.Marker(markerDetails);
       this.state.markers.push(marker);
 
       // eslint-disable-next-line

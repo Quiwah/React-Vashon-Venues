@@ -6,7 +6,6 @@
   "dependencies": {
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
-    "gh-pages": "^2.0.1",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-burger-menu": "^2.5.4",
@@ -32,6 +31,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "gh-pages": "^2.0.1",
     "uglify-js-brunch": "^2.10.0"
   }
 }
