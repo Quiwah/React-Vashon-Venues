@@ -297,17 +297,18 @@ export default class App extends React.Component {
       let checkAddress = (venue.venue.location.address != null)?venue.venue.location.address:'No address provided';
 
       //Create marker
-      let markerDetails = {
+      let markerOptions = {
           position: {lat: venue.venue.location.lat, lng: venue.venue.location.lng},
           map: map,
           title: venue.venue.name,
-          icon: 'marker.png',
+          icon: {url: 'https://raw.githubusercontent.com/Quiwah/React-Vashon-Venues/master/src/marker.png',
+                  scaledSize: new window.google.maps.Size(48, 48)},
           id: venue.venue.id,
           genre: venue.venue.categories[0].name,
           address: JSON.stringify(checkAddress)
       }
 
-      let marker = new window.google.maps.Marker(markerDetails);
+      let marker = new window.google.maps.Marker(markerOptions);
       this.state.markers.push(marker);
 
       // eslint-disable-next-line
