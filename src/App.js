@@ -39,15 +39,15 @@ export default class App extends React.Component {
   }
 
   renderMap = () => {
-    loadApi('https://maps.googleapis.com/maps/api/js?key=AIzaSyCe4r1pl_xLXiDj61hQQvWdEsqFnmtHgrE&v=3&callback=initMap');
+    loadApi('https://maps.googleapis.com/maps/api/js?key= 'your key' &v=3&callback=initMap');
     window.initMap = this.initMap;
   }
 
   getVenues = () => {
     const endPoint = 'https://api.foursquare.com/v2/venues/explore?';
     const parameters = {
-      client_id: 'VPYE1ATQWP3JJ42VT0OWU42SVVP14CF5TIANTCAWHLVTKICP',
-      client_secret: 'ZE20VQRHIA1NN2K5025Q5DYJKQHILLOLF4SVS3ELMSHGSZIH',
+      client_id: 'your client id',
+      client_secret: 'your client secret',
       ll: '47.424885, -122.470579',
       v: '20190323'
     }
