@@ -15,10 +15,11 @@ To get it installed and launched:
 ```
 `npm install`
 ```
-* start the development server with 
+* Start the development server with 
 ```
 `npm start`
 ```
+* In App.js, put your Google Maps API key on line 42 and Forsquare ID & secret to line 49-50
 
 * You'll be able to access the app at localhost:3000
 
